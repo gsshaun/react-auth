@@ -1,12 +1,12 @@
 import { ObjectID } from 'mongodb'
 import { getDbConnection } from '../db'
-import { jwt } from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 
 export const verifyEmailRoute = {
     path: '/api/verify-email',
     method: 'put',
     handler: async (req, res) => {
-        const { verificationString } = req;
+        const { verificationString } = req.body;
         const db = getDbConnection(process.env.DB_NAME);
         const result = await db.collection('users').findOne({ verificationString });
         if (!result)
